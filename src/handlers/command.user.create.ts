@@ -1,9 +1,10 @@
-const eventSourceDb = require('../db/eventSource');
+const eventSourceDb = require("../db/eventSource");
 
-module.exports.command = 'command.user.create';
+module.exports.command = "command.user.create";
 
 module.exports.listen = function(command, cb) {
-    const { bus } = this;
-    console.log(command);
-    eventSourceDb.writeMessage('message');
+  const { bus } = this;
+  console.log(command);
+  eventSourceDb.writeMessage("message");
+  cb();
 };

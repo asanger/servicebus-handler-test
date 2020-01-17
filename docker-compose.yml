@@ -3,7 +3,7 @@ version: "3.7"
 services:
   api:
     build: .
-    command: wait-for-it.sh rabbitmq:5672 -- npm run start
+    command: wait-for-it.sh rabbitmq:5672 -- npm run dev
     stdin_open: true
     tty: true
     volumes:
@@ -22,7 +22,6 @@ services:
       - "${API_PORT:-8080}:8080"
     depends_on:
       - rabbitmq
-      - migration
   rabbitmq:
     image: rabbitmq:3-management-alpine
     environment:

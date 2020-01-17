@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "lint": "./node_modules/.bin/eslint . --ext .js,.ts --fix",
+    "dev": "ts-node src/app",
+    "lint": "eslint . --ext .js,.ts --fix",
     "start": "tsc && node ./lib/app.js",
-    "start:dev": "export NODE_ENV=development && nodemon -e ts -w ./src -w ./app.ts --exec 'npm start'",
-    "test": "tsc && ./node_modules/.bin/mocha ./lib/tests --recursive --exit",
-    "test:integration": "./node_modules/.bin/mocha ./lib/tests/integration --recursive --exit"
+    "start:dev": "export NODE_ENV=development && nodemon -e ts -w ./src -w --exec 'npm start'",
+    "test": "tsc && mocha ./lib/tests --recursive --exit",
+    "test:integration": "mocha ./lib/tests/integration --recursive --exit"
   },
   "keywords": [],
   "author": "Alec Sanger",
@@ -32,7 +33,6 @@
     "pg": "^7.12.1",
     "servicebus": "^2.3.3",
     "servicebus-register-handlers": "^0.2.2",
-    "ts-node": "^8.4.1",
     "uuid": "^3.3.3",
     "winston": "^3.2.1"
   },
@@ -57,6 +57,7 @@
     "nodemon": "^1.19.4",
     "prettier": "^1.18.2",
     "sinon": "^7.5.0",
+    "ts-node": "^8.6.2",
     "typescript": "^3.6.4",
     "watch": "^1.0.2"
   },

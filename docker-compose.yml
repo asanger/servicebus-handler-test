@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  api:
+    build: .
+    command: wait-for-it.sh rabbitmq:5672 -- npm run start
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/app
+      # ignore local node modules in the mounted volume
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=${API_PORT:-8080}
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=rabbitmq
+      - RABBITMQ_PASS=rabbitmq
+      - RABBITMQ_PORT=${RABBITMQ_PORT:-5672}
+      - RABBITMQ_QUEUE_PREFIX=pamb
+    ports:
+      - "${API_PORT:-8080}:8080"
+    depends_on:
+      - rabbitmq
+      - migration
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    environment:
+      RABBITMQ_ERLANG_COOKIE: rabbitmq
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+    ports:
+      - "${RABBITMQ_PORT:-5672}:5672"
